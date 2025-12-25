@@ -11,12 +11,12 @@
 
 const initTypewriter = () => {
     const roles = [
-        'Full Stack Developer',
+        'Frontend Developer',
         'AI Enthusiast',
         'Problem Solver',
-        'Tech Innovator',
         'Creative Coder',
-        'Cloud Architect'
+        'UI Enthusiast',
+        'Tech Explorer',
     ];
     
     const roleElement = document.querySelector('.role-text');
@@ -223,10 +223,13 @@ const initNumberCounters = () => {
         const updateCounter = () => {
             current += step;
             if (current < target) {
-                element.textContent = Math.floor(current);
+                const suffix = element.getAttribute('data-suffix') || '';
+element.textContent = Math.floor(current) + suffix;
+
                 requestAnimationFrame(updateCounter);
             } else {
-                element.textContent = target;
+                element.textContent = target + suffix;
+
             }
         };
         
