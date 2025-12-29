@@ -13,8 +13,6 @@ const initTypewriter = () => {
     const roles = [
         'Frontend Developer',
         'AI Enthusiast',
-        'Problem Solver',
-        'Creative Coder',
         'UI Enthusiast',
         'Tech Explorer',
     ];
