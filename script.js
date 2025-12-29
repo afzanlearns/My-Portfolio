@@ -16,34 +16,34 @@ const initTypewriter = () => {
         'UI Enthusiast',
         'Tech Explorer',
     ];
-    
+
     const roleElement = document.querySelector('.role-text');
     if (!roleElement) return;
-    
+
     let roleIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
     let isPaused = false;
-    
+
     const typeSpeed = 100;
     const deleteSpeed = 50;
     const pauseDuration = 2000;
-    
+
     const type = () => {
         const currentRole = roles[roleIndex];
-        
+
         if (isPaused) {
             setTimeout(type, pauseDuration);
             isPaused = false;
             isDeleting = true;
             return;
         }
-        
+
         if (isDeleting) {
             // Delete character
             roleElement.textContent = currentRole.substring(0, charIndex - 1);
             charIndex--;
-            
+
             if (charIndex === 0) {
                 isDeleting = false;
                 roleIndex = (roleIndex + 1) % roles.length;
@@ -54,16 +54,16 @@ const initTypewriter = () => {
             // Type character
             roleElement.textContent = currentRole.substring(0, charIndex + 1);
             charIndex++;
-            
+
             if (charIndex === currentRole.length) {
                 isPaused = true;
             }
         }
-        
+
         const speed = isDeleting ? deleteSpeed : typeSpeed;
         setTimeout(type, speed);
     };
-    
+
     // Start typing after a short delay
     setTimeout(() => {
         type();
@@ -93,7 +93,7 @@ const debounce = (func, wait = 100) => {
 // Throttle function
 const throttle = (func, limit) => {
     let inThrottle;
-    return function(...args) {
+    return function (...args) {
         if (!inThrottle) {
             func.apply(this, args);
             inThrottle = true;
@@ -112,33 +112,64 @@ const initNavigation = () => {
     const navLinks = $('#navLinks');
     const menuBackdrop = $('#menuBackdrop');
     const links = $$('.nav-link');
-    
+
+    // Store the current scroll position
+    let scrollPosition = 0;
+
+    // Function to lock body scroll
+    const lockScroll = () => {
+        scrollPosition = window.pageYOffset;
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollPosition}px`;
+        document.body.style.width = '100%';
+    };
+
+    // Function to unlock body scroll
+    const unlockScroll = () => {
+        document.body.style.removeProperty('overflow');
+        document.body.style.removeProperty('position');
+        document.body.style.removeProperty('top');
+        document.body.style.removeProperty('width');
+        window.scrollTo(0, scrollPosition);
+    };
+
     // Toggle mobile menu
     navToggle?.addEventListener('click', () => {
         const isActive = navToggle.classList.toggle('active');
         navLinks.classList.toggle('active');
         menuBackdrop.classList.toggle('active');
-        document.body.style.overflow = isActive ? 'hidden' : '';
+
+        if (isActive) {
+            lockScroll();
+        } else {
+            unlockScroll();
+        }
     });
-    
+
     // Close menu on backdrop click
     menuBackdrop?.addEventListener('click', () => {
         navToggle?.classList.remove('active');
         navLinks?.classList.remove('active');
         menuBackdrop?.classList.remove('active');
-        document.body.style.overflow = '';
+        unlockScroll();
     });
-    
+
+    // Prevent touch scrolling on backdrop
+    menuBackdrop?.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+    }, { passive: false });
+
     // Close menu on link click
     links.forEach(link => {
         link.addEventListener('click', () => {
             navToggle?.classList.remove('active');
             navLinks?.classList.remove('active');
             menuBackdrop?.classList.remove('active');
-            document.body.style.overflow = '';
+            unlockScroll();
         });
     });
-    
+
     // Scroll effect for navigation
     const handleScroll = () => {
         if (window.scrollY > 100) {
@@ -147,20 +178,20 @@ const initNavigation = () => {
             nav?.classList.remove('scrolled');
         }
     };
-    
+
     window.addEventListener('scroll', throttle(handleScroll, 100));
     handleScroll();
-    
+
     // Active link on scroll
     const updateActiveLink = () => {
         const sections = $$('section[id]');
         const scrollY = window.scrollY + 150;
-        
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
             const sectionId = section.getAttribute('id');
-            
+
             if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
                 links.forEach(link => {
                     link.classList.remove('active');
@@ -171,7 +202,7 @@ const initNavigation = () => {
             }
         });
     };
-    
+
     window.addEventListener('scroll', throttle(updateActiveLink, 100));
     updateActiveLink();
 };
@@ -182,16 +213,16 @@ const initNavigation = () => {
 
 const initScrollReveal = () => {
     const reveals = $$('[data-reveal]');
-    
+
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 const delay = entry.target.getAttribute('data-delay') || 0;
-                
+
                 setTimeout(() => {
                     entry.target.classList.add('revealed');
                 }, delay);
-                
+
                 revealObserver.unobserve(entry.target);
             }
         });
@@ -199,7 +230,7 @@ const initScrollReveal = () => {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     });
-    
+
     reveals.forEach(reveal => {
         revealObserver.observe(reveal);
     });
@@ -211,29 +242,27 @@ const initScrollReveal = () => {
 
 const initNumberCounters = () => {
     const counters = $$('.stat-number[data-count]');
-    
+
     const animateCounter = (element) => {
         const target = parseInt(element.getAttribute('data-count'));
         const duration = 2000;
         const step = target / (duration / 16);
         let current = 0;
-        
+        const suffix = element.getAttribute('data-suffix') || '';
+
         const updateCounter = () => {
             current += step;
             if (current < target) {
-                const suffix = element.getAttribute('data-suffix') || '';
-element.textContent = Math.floor(current) + suffix;
-
+                element.textContent = Math.floor(current) + suffix;
                 requestAnimationFrame(updateCounter);
             } else {
                 element.textContent = target + suffix;
-
             }
         };
-        
+
         updateCounter();
     };
-    
+
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -244,7 +273,7 @@ element.textContent = Math.floor(current) + suffix;
     }, {
         threshold: 0.5
     });
-    
+
     counters.forEach(counter => {
         counterObserver.observe(counter);
     });
@@ -257,25 +286,25 @@ element.textContent = Math.floor(current) + suffix;
 const initProjectFilters = () => {
     const filterBtns = $$('.filter-btn');
     const projectCards = $$('.project-card');
-    
+
     if (!filterBtns.length || !projectCards.length) return;
-    
+
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             // Update active button
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
+
             const filter = btn.getAttribute('data-filter');
-            
+
             // Filter projects with staggered animation
             projectCards.forEach((card, index) => {
                 const category = card.getAttribute('data-category');
-                
+
                 if (filter === 'all' || category === filter) {
                     card.style.display = '';
                     card.classList.remove('hidden');
-                    
+
                     // Stagger the animation
                     card.style.animation = 'none';
                     setTimeout(() => {
@@ -308,7 +337,7 @@ const initCopyEmail = () => {
             try {
                 await navigator.clipboard.writeText(email);
                 showCopySuccess();
-                
+
                 // Change button text temporarily
                 copyEmailBtn.innerHTML = '<i class="fas fa-check"></i> <span class="btn-text">Copied!</span>';
                 setTimeout(() => {
@@ -321,13 +350,13 @@ const initCopyEmail = () => {
             }
         });
     }
-    
+
     function showCopySuccess() {
         const copySuccessMsg = $('#copy-success');
         if (copySuccessMsg) {
             copySuccessMsg.classList.add('show');
             copySuccessMsg.style.display = 'block';
-            
+
             setTimeout(() => {
                 copySuccessMsg.classList.remove('show');
                 setTimeout(() => {
@@ -336,7 +365,7 @@ const initCopyEmail = () => {
             }, 3000);
         }
     }
-    
+
     function fallbackCopyEmail(email) {
         const textArea = document.createElement('textarea');
         textArea.value = email;
@@ -355,22 +384,22 @@ const initCopyEmail = () => {
 
 const initSmoothScroll = () => {
     $$('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
-            
+
             if (href === '#') return;
-            
+
             e.preventDefault();
             const target = $(href);
-            
+
             if (target) {
                 const offsetTop = target.offsetTop - 80;
-                
+
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
                 });
-                
+
                 // Add highlight effect to target section
                 target.style.transition = 'all 0.3s ease';
                 target.style.transform = 'scale(1.01)';
@@ -388,7 +417,7 @@ const initSmoothScroll = () => {
 
 const initTechIcons = () => {
     const techIcons = $$('.tech-icon');
-    
+
     techIcons.forEach(icon => {
         icon.addEventListener('mouseenter', () => {
             // Pause the orbit rotation temporarily
@@ -396,7 +425,7 @@ const initTechIcons = () => {
             if (orbitRing) {
                 orbitRing.style.animationPlayState = 'paused';
             }
-            
+
             // Add ripple effect
             const ripple = document.createElement('div');
             ripple.style.cssText = `
@@ -409,10 +438,10 @@ const initTechIcons = () => {
                 pointer-events: none;
             `;
             icon.appendChild(ripple);
-            
+
             setTimeout(() => ripple.remove(), 600);
         });
-        
+
         icon.addEventListener('mouseleave', () => {
             // Resume the orbit rotation
             const orbitRing = icon.closest('.orbit-ring');
@@ -420,7 +449,7 @@ const initTechIcons = () => {
                 orbitRing.style.animationPlayState = 'running';
             }
         });
-        
+
         // Add click event for mobile
         icon.addEventListener('click', () => {
             icon.style.animation = 'iconBounce 0.5s ease';
@@ -429,7 +458,7 @@ const initTechIcons = () => {
             }, 500);
         });
     });
-    
+
     // Add ripple keyframe
     if (!document.querySelector('#ripple-animation')) {
         const style = document.createElement('style');
@@ -460,9 +489,9 @@ const initTechIcons = () => {
 
 const initScrollToTop = () => {
     const scrollBtn = $('#scrollToTop');
-    
+
     if (!scrollBtn) return;
-    
+
     // Show/hide button based on scroll position
     const toggleScrollBtn = () => {
         if (window.scrollY > 500) {
@@ -471,17 +500,17 @@ const initScrollToTop = () => {
             scrollBtn.classList.remove('visible');
         }
     };
-    
+
     window.addEventListener('scroll', throttle(toggleScrollBtn, 100));
     toggleScrollBtn();
-    
+
     // Scroll to top on click
     scrollBtn.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
-        
+
         // Add rotation animation
         scrollBtn.style.transform = 'scale(1) rotate(360deg)';
         setTimeout(() => {
@@ -502,18 +531,18 @@ const initKeyboardShortcuts = () => {
         'p': '#projects',
         'c': '#contact'
     };
-    
+
     document.addEventListener('keydown', (e) => {
         // Don't trigger when typing in inputs
         if (e.target.matches('input, textarea, button')) return;
-        
+
         const section = shortcuts[e.key.toLowerCase()];
         if (section) {
             e.preventDefault();
             const target = $(section);
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth' });
-                
+
                 // Flash effect
                 target.style.boxShadow = '0 0 30px rgba(88, 101, 242, 0.5)';
                 setTimeout(() => {
@@ -522,7 +551,7 @@ const initKeyboardShortcuts = () => {
             }
         }
     });
-    
+
     console.log('%c🎹 Keyboard Shortcuts', 'color: #5865f2; font-size: 14px; font-weight: bold;');
     console.log('H - Home | A - About | S - Skills | P - Projects | C - Contact');
 };
@@ -538,11 +567,11 @@ const initEasterEgg = () => {
         'b', 'a'
     ];
     let konamiIndex = 0;
-    
+
     document.addEventListener('keydown', (e) => {
         if (e.key === konamiCode[konamiIndex]) {
             konamiIndex++;
-            
+
             if (konamiIndex === konamiCode.length) {
                 activateEasterEgg();
                 konamiIndex = 0;
@@ -551,17 +580,17 @@ const initEasterEgg = () => {
             konamiIndex = 0;
         }
     });
-    
+
     const activateEasterEgg = () => {
         // Create enhanced confetti effect
         const colors = ['#5865f2', '#7289ff', '#ffffff', '#9999a8', '#e8e8f0'];
         const confettiCount = 150;
-        
+
         for (let i = 0; i < confettiCount; i++) {
             setTimeout(() => {
                 const confetti = document.createElement('div');
                 const size = Math.random() * 10 + 5;
-                
+
                 confetti.style.cssText = `
                     position: fixed;
                     left: ${Math.random() * 100}%;
@@ -574,11 +603,11 @@ const initEasterEgg = () => {
                     border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
                 `;
                 document.body.appendChild(confetti);
-                
+
                 const duration = Math.random() * 3000 + 2000;
                 const rotation = Math.random() * 720 - 360;
                 const drift = Math.random() * 200 - 100;
-                
+
                 confetti.animate([
                     {
                         transform: `translateY(0) translateX(0) rotate(0deg)`,
@@ -592,11 +621,11 @@ const initEasterEgg = () => {
                     duration: duration,
                     easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
                 });
-                
+
                 setTimeout(() => confetti.remove(), duration);
             }, i * 15);
         }
-        
+
         // Show enhanced message
         const message = document.createElement('div');
         message.style.cssText = `
@@ -620,14 +649,14 @@ const initEasterEgg = () => {
             <p style="color: #9999a8; font-size: 1rem;">A true developer of culture 🎉</p>
         `;
         document.body.appendChild(message);
-        
+
         // Animate message entrance
         setTimeout(() => {
             message.style.transition = 'all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
             message.style.opacity = '1';
             message.style.transform = 'translate(-50%, -50%) scale(1)';
         }, 100);
-        
+
         setTimeout(() => {
             message.style.transition = 'all 0.3s ease';
             message.style.opacity = '0';
@@ -636,7 +665,7 @@ const initEasterEgg = () => {
                 message.remove();
             }, 300);
         }, 4000);
-        
+
         console.log('%c🎮 KONAMI CODE ACTIVATED!', 'color: #5865f2; font-size: 24px; font-weight: bold;');
         console.log('%c✨ Pure magic!', 'color: #7289ff; font-size: 16px;');
     };
@@ -667,7 +696,7 @@ const logPerformance = () => {
                 const perfData = window.performance.timing;
                 const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
                 const domReadyTime = perfData.domContentLoadedEventEnd - perfData.navigationStart;
-                
+
                 console.log('%c⚡ Performance Metrics', 'color: #5865f2; font-size: 16px; font-weight: bold;');
                 console.log(`%cPage Load Time: ${pageLoadTime}ms`, 'color: #7289ff;');
                 console.log(`%cDOM Ready Time: ${domReadyTime}ms`, 'color: #7289ff;');
@@ -684,7 +713,7 @@ const init = () => {
     console.log('%c👋 Welcome to Afzan\'s Portfolio!', 'color: #5865f2; font-size: 24px; font-weight: bold;');
     console.log('%c✨ Built with passion and modern web technologies', 'color: #7289ff; font-size: 14px;');
     console.log('%c🚀 Enhanced with advanced animations and typewriter effect', 'color: #9999a8; font-size: 12px;');
-    
+
     // Initialize all features
     initTypewriter();
     initNavigation();
