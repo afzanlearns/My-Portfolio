@@ -1551,6 +1551,11 @@ body {
         gap: var(--space-xl);
         text-align: center;
     }
+
+    .hero-visual {
+        order: -1;
+        margin-bottom: var(--space-lg);
+    }
     
     .hero-content {
         display: flex;

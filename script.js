@@ -131,7 +131,15 @@ const initNavigation = () => {
         document.body.style.removeProperty('position');
         document.body.style.removeProperty('top');
         document.body.style.removeProperty('width');
+
+        // Disable smooth scrolling temporarily to prevent jumping effect
+        document.documentElement.style.scrollBehavior = 'auto';
         window.scrollTo(0, scrollPosition);
+
+        // Restore smooth scrolling
+        setTimeout(() => {
+            document.documentElement.style.scrollBehavior = 'smooth';
+        }, 50);
     };
 
     // Toggle mobile menu
