@@ -8,7 +8,9 @@
    CSS RESET & BASE
    ========================================== */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -26,7 +28,7 @@
     --color-accent: #5865f2;
     --color-accent-light: #7289ff;
     --color-accent-dark: #3f4ac7;
-    
+
     /* Spacing */
     --space-xs: 0.5rem;
     --space-sm: 1rem;
@@ -35,31 +37,31 @@
     --space-xl: 3rem;
     --space-2xl: 4rem;
     --space-3xl: 6rem;
-    
+
     /* Typography */
     --font-body: 'Space Mono', monospace;
     --font-display: 'Syne', sans-serif;
     --font-mono: 'Space Mono', 'Courier New', monospace;
-    
+
     /* Effects */
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.12);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.18);
     --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.24);
     --shadow-accent: 0 8px 24px rgba(88, 101, 242, 0.2);
-    
+
     /* Transitions */
     --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    
+
     /* Border Radius */
     --radius-sm: 0.5rem;
     --radius-md: 0.75rem;
     --radius-lg: 1rem;
     --radius-xl: 1.5rem;
     --radius-full: 9999px;
-    
+
     /* Nav height */
     --nav-height: 80px;
 }
@@ -93,7 +95,7 @@ body {
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background: 
+    background:
         radial-gradient(ellipse 80% 50% at 50% -20%, rgba(88, 101, 242, 0.15), transparent),
         radial-gradient(ellipse 60% 80% at 10% 80%, rgba(88, 101, 242, 0.08), transparent),
         radial-gradient(circle at 90% 20%, rgba(114, 137, 255, 0.05), transparent 40%);
@@ -102,15 +104,22 @@ body {
 }
 
 @keyframes ambientMove {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(20px, -20px) scale(1.05); }
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(20px, -20px) scale(1.05);
+    }
 }
 
 .ambient-bg::after {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: 
+    background-image:
         repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(88, 101, 242, 0.03) 2px, rgba(88, 101, 242, 0.03) 4px),
         repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(88, 101, 242, 0.03) 2px, rgba(88, 101, 242, 0.03) 4px);
     opacity: 0.3;
@@ -150,6 +159,7 @@ body {
         transform: translateY(-100%);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
@@ -333,8 +343,15 @@ body {
 }
 
 @keyframes backdropPulse {
-    0%, 100% { background: rgba(0, 0, 0, 0.75); }
-    50% { background: rgba(0, 0, 0, 0.8); }
+
+    0%,
+    100% {
+        background: rgba(0, 0, 0, 0.75);
+    }
+
+    50% {
+        background: rgba(0, 0, 0, 0.8);
+    }
 }
 
 /* ==========================================
@@ -365,10 +382,13 @@ body {
 }
 
 @keyframes labelPulse {
-    0%, 100% { 
+
+    0%,
+    100% {
         box-shadow: 0 0 0 0 rgba(88, 101, 242, 0.4);
     }
-    50% { 
+
+    50% {
         box-shadow: 0 0 0 8px rgba(88, 101, 242, 0);
     }
 }
@@ -394,8 +414,15 @@ body {
 }
 
 @keyframes titleShimmer {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
 }
 
 .section-description {
@@ -412,7 +439,8 @@ body {
 
 .hero {
     min-height: 100vh;
-    height: 100vh;
+    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -428,7 +456,7 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: 
+    background:
         radial-gradient(circle at 30% 30%, rgba(88, 101, 242, 0.03) 0%, transparent 50%),
         radial-gradient(circle at 70% 70%, rgba(114, 137, 255, 0.02) 0%, transparent 50%);
     animation: heroRotate 30s linear infinite;
@@ -436,8 +464,13 @@ body {
 }
 
 @keyframes heroRotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .hero-container {
@@ -498,8 +531,15 @@ body {
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }
 
 .role-divider {
@@ -542,8 +582,15 @@ body {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
 }
 
 .card-glow {
@@ -555,8 +602,17 @@ body {
 }
 
 @keyframes glowPulse {
-    0%, 100% { opacity: 0.5; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(1.1); }
+
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
 }
 
 .tech-orbit {
@@ -574,16 +630,50 @@ body {
     border: none;
 }
 
-.orbit-1 { width: 95%; height: 95%; animation: rotate 37s linear infinite; }
-.orbit-2 { width: 85%; height: 85%; animation: rotate 41s linear infinite reverse; }
-.orbit-3 { width: 75%; height: 75%; animation: rotate 31s linear infinite; }
-.orbit-4 { width: 65%; height: 65%; animation: rotate 43s linear infinite reverse; }
-.orbit-5 { width: 62.5%; height: 62.5%; animation: rotate 29s linear infinite; }
-.orbit-6 { width: 72.5%; height: 72.5%; animation: rotate 47s linear infinite; }
+.orbit-1 {
+    width: 95%;
+    height: 95%;
+    animation: rotate 37s linear infinite;
+}
+
+.orbit-2 {
+    width: 85%;
+    height: 85%;
+    animation: rotate 41s linear infinite reverse;
+}
+
+.orbit-3 {
+    width: 75%;
+    height: 75%;
+    animation: rotate 31s linear infinite;
+}
+
+.orbit-4 {
+    width: 65%;
+    height: 65%;
+    animation: rotate 43s linear infinite reverse;
+}
+
+.orbit-5 {
+    width: 62.5%;
+    height: 62.5%;
+    animation: rotate 29s linear infinite;
+}
+
+.orbit-6 {
+    width: 72.5%;
+    height: 72.5%;
+    animation: rotate 47s linear infinite;
+}
 
 @keyframes rotate {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to { transform: translate(-50%, -50%) rotate(360deg); }
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
 }
 
 .tech-icon {
@@ -610,12 +700,15 @@ body {
 }
 
 @keyframes iconFloat {
-    0%, 100% { 
-        transform: translateX(-50%) scale(1); 
+
+    0%,
+    100% {
+        transform: translateX(-50%) scale(1);
         filter: drop-shadow(0 0 8px rgba(88, 101, 242, 0.4));
     }
-    50% { 
-        transform: translateX(-50%) scale(1.15); 
+
+    50% {
+        transform: translateX(-50%) scale(1.15);
         filter: drop-shadow(0 0 12px rgba(88, 101, 242, 0.6));
     }
 }
@@ -670,8 +763,15 @@ body {
 }
 
 @keyframes imagePulse {
-    0% { transform: scale(1); opacity: 1; }
-    100% { transform: scale(1.3); opacity: 0; }
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.3);
+        opacity: 0;
+    }
 }
 
 .scroll-indicator {
@@ -695,8 +795,17 @@ body {
 }
 
 @keyframes scrollPulse {
-    0%, 100% { opacity: 0.3; transform: translateY(0); }
-    50% { opacity: 1; transform: translateY(8px); }
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: translateY(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(8px);
+    }
 }
 
 /* ==========================================
@@ -757,9 +866,19 @@ body {
 }
 
 @keyframes arrowShake {
-    0%, 100% { transform: translateX(4px); }
-    25% { transform: translateX(8px); }
-    75% { transform: translateX(0px); }
+
+    0%,
+    100% {
+        transform: translateX(4px);
+    }
+
+    25% {
+        transform: translateX(8px);
+    }
+
+    75% {
+        transform: translateX(0px);
+    }
 }
 
 .btn-primary {
@@ -1134,8 +1253,15 @@ body {
 }
 
 @keyframes gradientMove {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(10px, 10px); }
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(10px, 10px);
+    }
 }
 
 .project-icon {
@@ -1176,8 +1302,15 @@ body {
 }
 
 @keyframes badgePulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
 }
 
 .project-title {
@@ -1201,6 +1334,7 @@ body {
     font-size: clamp(0.875rem, 1.5vw, 0.9375rem);
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -1293,8 +1427,13 @@ body {
 }
 
 @keyframes contactRotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .contact-card:hover {
@@ -1353,6 +1492,7 @@ body {
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1481,8 +1621,15 @@ body {
 }
 
 @keyframes arrowBounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
 }
 
 /* ==========================================
@@ -1492,8 +1639,8 @@ body {
 [data-reveal] {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
-                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 [data-reveal].revealed {
@@ -1506,6 +1653,7 @@ body {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1528,7 +1676,7 @@ body {
     .hero-container {
         gap: clamp(1.5rem, 4vw, 3rem);
     }
-    
+
     .floating-card {
         width: min(360px, 85vw);
         height: min(360px, 85vw);
@@ -1541,11 +1689,11 @@ body {
         --space-3xl: 4rem;
         --space-2xl: 3rem;
     }
-    
+
     .project-card.featured {
         grid-column: span 1;
     }
-    
+
     .hero-container {
         grid-template-columns: 1fr;
         gap: var(--space-xl);
@@ -1556,38 +1704,39 @@ body {
         order: -1;
         margin-bottom: var(--space-lg);
     }
-    
+
     .hero-content {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
-    
+
     .hero-description {
         max-width: 600px;
     }
-    
+
     .hero-cta {
         justify-content: center;
     }
-    
+
     .floating-card {
         width: min(350px, 80vw);
         height: min(350px, 80vw);
     }
-    
+
     /* Projects optimization for laptop */
     .projects-grid {
         grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
         gap: 1.25rem;
     }
-    
+
     .project-visual {
         height: clamp(140px, 16vh, 180px);
     }
-    
+
     .project-description {
         -webkit-line-clamp: 2;
+        line-clamp: 2;
         font-size: 0.875rem;
     }
 }
@@ -1599,17 +1748,17 @@ body {
         --space-2xl: 2.5rem;
         --nav-height: 70px;
     }
-    
+
     /* Enhanced Mobile Menu for Tablet */
     .nav-links {
         width: 60%;
         max-width: 280px;
     }
-    
+
     .nav-link {
         font-size: 1.5rem;
     }
-    
+
     /* Enhanced Mobile Menu - Beautiful & Non-Overlapping */
     .nav-links {
         position: fixed;
@@ -1618,10 +1767,10 @@ body {
         width: 60%;
         max-width: 280px;
         height: 100vh;
-        background: linear-gradient(135deg, 
-            rgba(18, 18, 26, 0.97) 0%, 
-            rgba(26, 26, 36, 0.95) 50%,
-            rgba(18, 18, 26, 0.97) 100%);
+        background: linear-gradient(135deg,
+                rgba(18, 18, 26, 0.97) 0%,
+                rgba(26, 26, 36, 0.95) 50%,
+                rgba(18, 18, 26, 0.97) 100%);
         backdrop-filter: blur(40px) saturate(180%);
         -webkit-backdrop-filter: blur(40px) saturate(180%);
         flex-direction: column;
@@ -1629,24 +1778,22 @@ body {
         align-items: flex-start;
         padding: 0 var(--space-2xl);
         gap: var(--space-xl);
-        transition: right 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
-                    box-shadow 0.6s ease;
+        transition: right 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+            box-shadow 0.6s ease;
         z-index: 999;
         border-left: 2px solid transparent;
-        border-image: linear-gradient(
-            to bottom, 
-            transparent 0%, 
-            rgba(88, 101, 242, 0.5) 20%, 
-            rgba(88, 101, 242, 0.8) 50%,
-            rgba(88, 101, 242, 0.5) 80%,
-            transparent 100%
-        ) 1;
-        box-shadow: 
+        border-image: linear-gradient(to bottom,
+                transparent 0%,
+                rgba(88, 101, 242, 0.5) 20%,
+                rgba(88, 101, 242, 0.8) 50%,
+                rgba(88, 101, 242, 0.5) 80%,
+                transparent 100%) 1;
+        box-shadow:
             -20px 0 60px rgba(0, 0, 0, 0.9),
             -5px 0 30px rgba(88, 101, 242, 0.2),
             inset 0 0 60px rgba(88, 101, 242, 0.05);
     }
-    
+
     /* Animated gradient overlay */
     .nav-links::before {
         content: '';
@@ -1655,7 +1802,7 @@ body {
         left: 0;
         width: 100%;
         height: 100%;
-        background: 
+        background:
             radial-gradient(circle at 20% 20%, rgba(88, 101, 242, 0.15), transparent 40%),
             radial-gradient(circle at 80% 50%, rgba(114, 137, 255, 0.12), transparent 45%),
             radial-gradient(circle at 40% 80%, rgba(88, 101, 242, 0.1), transparent 40%);
@@ -1664,7 +1811,7 @@ body {
         opacity: 0;
         transition: opacity 0.6s ease;
     }
-    
+
     /* Animated particles effect */
     .nav-links::after {
         content: '';
@@ -1673,7 +1820,7 @@ body {
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: 
+        background-image:
             radial-gradient(circle, rgba(88, 101, 242, 0.8) 1px, transparent 1px),
             radial-gradient(circle, rgba(114, 137, 255, 0.6) 1px, transparent 1px);
         background-size: 50px 50px, 80px 80px;
@@ -1683,34 +1830,38 @@ body {
         animation: particlesFloat 20s linear infinite;
         transition: opacity 0.6s ease;
     }
-    
+
     @keyframes menuGlowPulse {
-        0%, 100% { 
+
+        0%,
+        100% {
             opacity: 0;
             transform: scale(1) rotate(0deg);
         }
-        50% { 
+
+        50% {
             opacity: 1;
             transform: scale(1.1) rotate(5deg);
         }
     }
-    
+
     @keyframes particlesFloat {
-        from { 
+        from {
             transform: translateY(0);
             opacity: 0.1;
         }
-        to { 
+
+        to {
             transform: translateY(-100px);
             opacity: 0;
         }
     }
-    
+
     .nav-links.active::before,
     .nav-links.active::after {
         opacity: 1;
     }
-    
+
     /* Individual menu items with enhanced animations */
     .nav-links li {
         opacity: 0;
@@ -1719,30 +1870,33 @@ body {
         width: 100%;
         position: relative;
     }
-    
+
     .nav-links.active {
         right: 0;
         border-left-color: rgba(88, 101, 242, 0.5);
     }
-    
+
     .nav-links.active li {
         opacity: 1;
         transform: translateX(0) scale(1);
     }
-    
-    .nav-links.active li:nth-child(1) { 
-        transition-delay: 0.15s; 
+
+    .nav-links.active li:nth-child(1) {
+        transition-delay: 0.15s;
     }
-    .nav-links.active li:nth-child(2) { 
-        transition-delay: 0.25s; 
+
+    .nav-links.active li:nth-child(2) {
+        transition-delay: 0.25s;
     }
-    .nav-links.active li:nth-child(3) { 
-        transition-delay: 0.35s; 
+
+    .nav-links.active li:nth-child(3) {
+        transition-delay: 0.35s;
     }
-    .nav-links.active li:nth-child(4) { 
-        transition-delay: 0.45s; 
+
+    .nav-links.active li:nth-child(4) {
+        transition-delay: 0.45s;
     }
-    
+
     /* Enhanced menu link styling - Clean & Simple */
     .nav-link {
         font-size: 1.5rem;
@@ -1756,77 +1910,78 @@ body {
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         background: transparent;
     }
-    
+
     /* Remove all pseudo-elements for mobile */
     .nav-link::before,
     .nav-link::after {
         display: none;
     }
-    
+
     .nav-link:hover,
     .nav-link.active {
         background: rgba(88, 101, 242, 0.12);
         color: var(--color-accent-light);
         transform: translateX(4px);
     }
-    
+
     .nav-link:active {
         transform: translateX(4px) scale(0.98);
     }
-    
+
     .nav-toggle {
         display: flex;
     }
-    
+
     .hero {
         padding: calc(var(--nav-height) + 2rem) 0 var(--space-lg);
     }
-    
+
     .hero-visual {
         order: -1;
         margin-bottom: var(--space-sm);
     }
-    
+
     .hero-cta {
         flex-direction: column;
         width: 100%;
     }
-    
+
     .btn {
         width: 100%;
         justify-content: center;
     }
-    
+
     .floating-card {
         width: min(300px, 75vw);
         height: min(300px, 75vw);
     }
-    
+
     .about-stats {
         grid-template-columns: repeat(3, 1fr);
         gap: var(--space-md);
     }
-    
+
     .skills-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .projects-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .project-visual {
         height: clamp(180px, 20vh, 220px);
     }
-    
+
     .project-description {
         -webkit-line-clamp: 4;
+        line-clamp: 4;
     }
-    
+
     .contact-actions {
         flex-direction: column;
     }
-    
+
     .scroll-indicator {
         display: none;
     }
@@ -1842,7 +1997,7 @@ body {
         --space-md: 1rem;
         --nav-height: 65px;
     }
-    
+
     /* Ensure menu doesn't overlap logo on small screens */
     .nav-links {
         width: 65%;
@@ -1850,103 +2005,103 @@ body {
         padding: 0 var(--space-xl);
         gap: var(--space-lg);
     }
-    
+
     .nav-link {
         font-size: 1.35rem;
         padding: var(--space-sm) var(--space-xs);
     }
-    
+
     .container {
         padding: 0 var(--space-md);
     }
-    
+
     .nav-container {
         padding: 0 var(--space-md);
     }
-    
+
     .hero {
         padding: calc(var(--nav-height) + 1rem) 0 var(--space-md);
     }
-    
+
     .hero-content {
         max-width: 100%;
     }
-    
+
     .hero-container {
         gap: var(--space-lg);
     }
-    
+
     .hero-greeting {
         margin-bottom: 0.5rem;
     }
-    
+
     .hero-name {
         font-size: clamp(2rem, 10vw, 3rem);
         margin-bottom: 0.75rem;
     }
-    
+
     .hero-role {
         margin-bottom: var(--space-lg);
     }
-    
+
     .hero-description {
         margin-bottom: var(--space-lg);
         font-size: 0.9375rem;
         line-height: 1.6;
     }
-    
+
     .hero-cta {
         gap: var(--space-sm);
     }
-    
+
     .btn {
         padding: 0.75rem 1.5rem;
         font-size: 0.875rem;
     }
-    
+
     .about-stats {
         grid-template-columns: 1fr;
         text-align: center;
     }
-    
+
     .floating-card {
         width: min(240px, 65vw);
         height: min(240px, 65vw);
     }
-    
+
     .profile-image {
         width: clamp(130px, 20vw, 150px);
         height: clamp(130px, 20vw, 150px);
         border-width: 3px;
     }
-    
+
     .tech-icon {
         width: clamp(22px, 2.5vw, 26px);
         height: clamp(22px, 2.5vw, 26px);
         font-size: clamp(1rem, 1.8vw, 1.125rem);
     }
-    
+
     .nav-link {
         font-size: 1.25rem;
     }
-    
+
     /* Mobile Projects - Full Screen Cards */
     .projects-grid {
         gap: var(--space-lg);
     }
-    
+
     .project-card {
         min-height: 85vh;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
-    
+
     .project-visual {
         height: 30vh;
         min-height: 200px;
     }
-    
+
     .project-content {
         padding: var(--space-lg);
         flex: 1;
@@ -1954,7 +2109,7 @@ body {
         flex-direction: column;
         justify-content: space-between;
     }
-    
+
     .project-description {
         flex: 1;
         display: flex;
@@ -1968,31 +2123,31 @@ body {
         --space-md: 0.875rem;
         --space-lg: 1rem;
     }
-    
+
     .nav-links {
         width: 62%;
         max-width: 240px;
         padding: 0 var(--space-lg);
     }
-    
+
     .nav-link {
         font-size: 1.25rem;
     }
-    
+
     .hero-description {
         font-size: 0.875rem;
     }
-    
+
     .floating-card {
         width: min(220px, 60vw);
         height: min(220px, 60vw);
     }
-    
+
     .profile-image {
         width: clamp(110px, 18vw, 130px);
         height: clamp(110px, 18vw, 130px);
     }
-    
+
     .project-card {
         min-height: 90vh;
     }
@@ -2003,6 +2158,7 @@ body {
    ========================================== */
 
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -2024,6 +2180,7 @@ body {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -2034,18 +2191,19 @@ body {
    ========================================== */
 
 @media print {
+
     .nav,
     .scroll-to-top,
     .scroll-indicator,
     .menu-backdrop {
         display: none !important;
     }
-    
+
     body {
         background: white;
         color: black;
     }
-    
+
     .hero,
     .about,
     .skills,
